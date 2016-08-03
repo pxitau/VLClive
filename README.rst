@@ -8,8 +8,7 @@ VLClive Plus is an extension that integrates livestreamer into the VLC media pla
 
 VLClive Plus is written in Lua and uses the VLC Lua plugin interface.
 
-Credits to original author Julian Niedermeier 
-https://github.com/chrippa/livestreamer)
+Credits to original author Julian Niedermeier - https://github.com/sleighsoft/VLClive 
 
 Current Capabilities
 --------------------
