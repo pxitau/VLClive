@@ -1,4 +1,4 @@
--- 00000011
+-- 00000001
 -- Increment the above number by 1 to enable auto update at next extension startup
 --[[
 The MIT License (MIT)
@@ -66,27 +66,27 @@ vlclive = {
             favourite_online_text = ' (ONLINE)',
             favourite_online_indicator = 'ONLINE',
             twitch_favourites_label = 'Importiere alle Favoriten des Nutzers:',
-            twitch_favourites_add_button = 'Twitch Favoriten hinzufügen',
+            twitch_favourites_add_button = 'Favoriten hinzufügen',
             dialog_update_title = 'VLClive aktualisiert!',
             dialog_settings_title = 'VLClive Einstellungen'
         },
         en = {
-            streamer_name_label = 'Single Streamer Channel:',
+            streamer_name_label = 'Streamer Channel:',
             streamer_add_button = 'Add',
             streamer_remove_button = 'Remove',
             streamer_favourites_label = 'Favourites:',
             streamer_online_button = 'Online?',
             streamer_online_loading_label = 'Loading ...',
             livestreamer_quality_label = 'Quality:',
-            watch_button = 'Watch stream!',
+            watch_button = 'Watch Stream!',
             update_label = 'VLClive was updated. Please restart the plugin',
             favourite_offline_text = ' (OFF)',
             favourite_offline_indicator = 'OFF',
             favourite_online_text = ' (ONLINE)',
             favourite_online_indicator = 'ONLINE',
             twitch_favourites_label = 'Import all favourites of user:',
-            twitch_favourites_add_button = 'Add Twitch favourites',
-            dialog_update_title = 'VLClive updated!',
+            twitch_favourites_add_button = 'Add Favourites Stream',
+            dialog_update_title = 'VLClive Updated!',
             dialog_settings_title = 'VLClive Settings'
         }
     },
