@@ -48,8 +48,8 @@ vlclive = {
     livestreamBaseURLs = {
         twitch = 'twitch.tv/'
     },
-    githubSrcFile = 'https://raw.githubusercontent.com/sleighsoft/VLClive/master/src/VLClive.lua',
-    localSrcFileName = 'VLClive.lua',
+    githubSrcFile = 'https://raw.githubusercontent.com/pxitau/VLClive/master/src/VLClivePlus.lua',
+    localSrcFileName = 'VLClivePlus.lua',
     language = {
         de = {
             streamer_name_label = 'Einzelner Streamer:',
