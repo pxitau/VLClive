@@ -4,15 +4,17 @@ VLClive
 Overview
 --------
 
-VLClive is an extension that integrates livestreamer (https://github.com/chrippa/livestreamer)
-into the famous VLC media player.
-VLClive is written in Lua and uses the VLC Lua plugin interface.
+VLClive Plus is an extension that integrates livestreamer into the VLC media player.
+
+VLClive Plus is written in Lua and uses the VLC Lua plugin interface.
+
+Credits to original author Julian Niedermeier 
+https://github.com/chrippa/livestreamer)
 
 Current Capabilities
 --------------------
 
-Note: VLClive currently only works with twitch.tv streams but it is planned to support all the streams
-that are available for livestreamer in the future.
+Note: VLClive currently only works with twitch.tv streams 
 
 - Add/Remove your favourite streamers for quick access
 - Import all your favourite streamers from twitch.tv with one click
@@ -26,7 +28,7 @@ Installation
 1. Install Livestreamer: http://docs.livestreamer.io/install.html
 (If you use Windows, add it the the Path Variable as well!)
 
-2. Download the Lua file from /src/VLClive.lua
+2. Download the Lua file from /src/VLClivePlus.lua
 
 3. Place it in the correct folder:
 

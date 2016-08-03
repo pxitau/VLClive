@@ -27,7 +27,7 @@ SOFTWARE.
 -- ******************************
 
 vlclive = {
-    version = 'v1.0',
+    version = 'v0.1',
     default = {
         language = 'en',
         livestream_base_name = 'twitch'
@@ -160,11 +160,11 @@ end
 -- VLC specific. Used to describe the extension
 function descriptor()
     return {
-        title = 'VLClive',
+        title = 'VLClive +',
         version = vlclive.version,
         author = 'Julian Niedermeier',
-        url = 'http://',
-        shortdesc = 'VLClive',
+        url = 'https://github.com/pxitau/VLClive',
+        shortdesc = 'VLClivePlus',
         description = 'Integrates Livestreamer into VLC for easier handling of twitch.tv streams (more to come)',
         capabilities = {'menu'}
     }
