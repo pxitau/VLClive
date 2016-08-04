@@ -47,14 +47,15 @@ Installation
 Note: Additional Plugins maybe required
 
 
-Configuration
--------------
+Configuration File
+------------------
 
-Favourites are save to vlclive.config located in the folder below:
+Saved Favourites configuration file "vlclive.config" is located in
 
-    * Windows: C:\\Users\\<username>\\AppData\\Roaming\\vlc\\lua\\extensions\\userdata\\vlclive\\
-    * Linux: 
-    * Mac OS X:
+  * Windows: Windows: C:\\Users\\<username>\\AppData\\Roaming\\vlc\\lua\\extensions\\userdata\\vlclive\\
+  * Linux: 
+  * Mac OS X: /library/Application Support/org.videolan.vlc/lua/extensions/userdata/vlclive/
+
 
 Contributing
 ------------
