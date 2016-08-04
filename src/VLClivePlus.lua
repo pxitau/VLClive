@@ -1,4 +1,4 @@
--- 00000001
+-- 00000002
 -- Increment the above number by 1 to enable auto update at next extension startup
 --[[
 The MIT License (MIT)
@@ -27,11 +27,11 @@ SOFTWARE.
 -- ******************************
 
 vlclive = {
-    version = 'v0.1a',
+    version = 'v0.1b',
     default = {
         language = 'en',
         livestream_base_name = 'twitch',
-        livestreamURLs = 'streaming',
+        livestream_URLs = 'streaming',
         quality_setting = 'standard'
     },
     os = nil,
@@ -104,10 +104,10 @@ local widget_table = {}
 local isOnlineStreamerTable = {}
 local savedStreamers = nil
 local dlg = nil
+local current_QualitySettings = vlclive.quality.standard
+local current_SiteSettings = vlclive.livestreamURLs.streaming
 local current_LivestreamBaseName = vlclive.default.livestream_base_name
 local current_LivestreamBaseURL = vlclive.livestreamBaseURLs[current_LivestreamBaseName]
-local current_SiteSettings = vlclive.livestreamURLs.streaming
-local current_QualitySettings = vlclive.quality.standard
 
 -- Configures path variables
 function setup()
@@ -173,7 +173,7 @@ function descriptor()
         author = 'Julian Niedermeier',
         url = 'https://github.com/pxitau/VLClive',
         shortdesc = 'VLClivePlus',
-        description = 'Integrates Livestreamer into VLC for easier handling of twitch.tv streams (more to come)',
+        description = 'Integrates Livestreamer supported streams into VLC for easy handling',
         capabilities = {'menu'}
     }
 end
