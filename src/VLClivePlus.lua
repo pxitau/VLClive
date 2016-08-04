@@ -30,7 +30,6 @@ vlclive = {
     version = 'v0.1b',
     default = {
         language = 'en',
-        livestream_base_name = 'twitch',
         livestream_URLs = 'streaming',
         quality_setting = 'standard'
     },
@@ -42,12 +41,9 @@ vlclive = {
         extension = nil,
         vlcexe = nil
     },
-    livestreamBaseURLs = {
-        twitch = 'twitch.tv/'
-    },
     livestreamURLs = {
         streaming = {
-            'twitch.tv/', 'dailymotion.com/', 'periscope.tv/', 'youtube.com/'
+            'azubu.tv/', 'cybergame.tv/', 'panda.tv/', 'streamlive.to/view/', 'tvplayer.com/watch/', 'twitch.tv/', 'ustream.tv/channel/'
         }
     },
     quality = {
@@ -106,8 +102,7 @@ local savedStreamers = nil
 local dlg = nil
 local current_QualitySettings = vlclive.quality.standard
 local current_SiteSettings = vlclive.livestreamURLs.streaming
-local current_LivestreamBaseName = vlclive.default.livestream_base_name
-local current_LivestreamBaseURL = vlclive.livestreamBaseURLs[current_LivestreamBaseName]
+local default_LivestreamURL = vlclive.default.livestream_URLs
 
 -- Configures path variables
 function setup()
@@ -315,6 +310,7 @@ function watch_Action()
     site_string = current_SiteSettings[site_string]
     local quality_string = widget_table['livestreamer_quality_dropdown']:get_value()
     quality_string = current_QualitySettings[quality_string]
+    local current_LivestreamBaseURL = site_string
 
     if dropdown_string == 0 then
         dropdown_string = ''
@@ -425,7 +421,11 @@ function is_online(tStreamerNames)
 end
 
 function addFav_Action()
+    local site_string = widget_table['livestreamer_site_dropdown']:get_value()
+    site_string = current_SiteSettings[site_string]
     local input_string = widget_table['streamer_name_input']:get_text()
+    input_string = site_string .. input_string
+
     if input_string ~= '' then
         if not table_contains_item(savedStreamers, input_string) then
             write_line(vlclive.path.configfile, input_string)
