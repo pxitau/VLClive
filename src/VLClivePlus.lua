@@ -30,7 +30,8 @@ vlclive = {
     version = 'v0.1',
     default = {
         language = 'en',
-        livestream_base_name = 'twitch'
+        livestream_base_name = 'twitch',
+        quality_setting = 'standard'
     },
     os = nil,
     path = {
@@ -41,8 +42,8 @@ vlclive = {
         vlcexe = nil
     },
     quality = {
-        twitch = {
-            'Source', 'High', 'Medium', 'Low', 'Mobile', 'Audio'
+        standard = {
+            'Source', 'Best', 'High', 'Medium', 'Low', 'Worst', 'Mobile', 'Audio'
         }
     },
     livestreamBaseURLs = {
@@ -84,7 +85,7 @@ vlclive = {
             favourite_offline_indicator = 'OFF',
             favourite_online_text = ' (ONLINE)',
             favourite_online_indicator = 'ONLINE',
-            twitch_favourites_label = 'Import all favourites of user:',
+            twitch_favourites_label = 'Import Twitch User Favourites:',
             twitch_favourites_add_button = 'Import',
             dialog_update_title = 'VLClive Updated!',
             dialog_settings_title = 'VLClive Settings'
@@ -99,7 +100,7 @@ local savedStreamers = nil
 local dlg = nil
 local current_LivestreamBaseName = vlclive.default.livestream_base_name
 local current_LivestreamBaseURL = vlclive.livestreamBaseURLs[current_LivestreamBaseName]
-local current_QualitySettings = vlclive.quality[current_LivestreamBaseName]
+local current_QualitySettings = vlclive.quality.standard
 
 -- Configures path variables
 function setup()
