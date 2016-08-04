@@ -27,7 +27,7 @@ SOFTWARE.
 -- ******************************
 
 vlclive = {
-    version = 'v0.1b',
+    version = 'v0.2a',
     default = {
         language = 'en',
         livestream_URLs = 'streaming',
@@ -207,20 +207,22 @@ function create_MainDialog()
     -- First row
     widget_table['streamer_name_label'] = dlg:add_label(vlclive.language[lang].streamer_name_label, 1, row, 1, 1)
     widget_table['livestreamer_site_dropdown'] = dlg:add_dropdown(2, row, 2, 1)
-    widget_table['streamer_name_input'] = dlg:add_text_input('', 3, row, 2, 1)
-    widget_table['streamer_add_button'] = dlg:add_button(vlclive.language[lang].streamer_add_button, addFav_Action, 5, row, 1, 1)
     -- Second row
+    row = row + 1
+    widget_table['streamer_name_input'] = dlg:add_text_input('', 2, row, 3, 1)
+    widget_table['streamer_add_button'] = dlg:add_button(vlclive.language[lang].streamer_add_button, addFav_Action, 5, row, 1, 1)
+    -- Third row
     row = row + 1
     widget_table['twitch_favourites_label'] = dlg:add_label(vlclive.language[lang].twitch_favourites_label, 1, row, 1, 1)
     widget_table['twitch_favourites_input'] = dlg:add_text_input('', 2, row, 3, 1)
     widget_table['twitch_favourites_add_button'] = dlg:add_button(vlclive.language[lang].twitch_favourites_add_button, addTwitchFav_Action, 5, row, 2, 1)
-    -- Third row
+    -- Fourth row
     row = row + 1;
     vlclive.gui_isOnlineRow = row
     widget_table['streamer_favourites_label'] = dlg:add_label(vlclive.language[lang].streamer_favourites_label, 1, row, 1, 1)
     widget_table['streamer_favourites_dropdown'] = dlg:add_dropdown(2, row, 2, 1)
     widget_table['streamer_remove_button'] = dlg:add_button(vlclive.language[lang].streamer_remove_button, removeFav_Action, 5, row, 1, 1)
-    -- Fourth row
+    -- Fifth row
     row = row + 1;
     widget_table['livestreamer_quality_label'] = dlg:add_label(vlclive.language[lang].livestreamer_quality_label, 1, row, 1, 1)
     widget_table['livestreamer_quality_dropdown'] = dlg:add_dropdown(2, row, 2, 1)
