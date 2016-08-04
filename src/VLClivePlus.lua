@@ -1,4 +1,4 @@
--- 00000002
+-- 00000003
 -- Increment the above number by 1 to enable auto update at next extension startup
 --[[
 The MIT License (MIT)
@@ -27,7 +27,7 @@ SOFTWARE.
 -- ******************************
 
 vlclive = {
-    version = 'v0.2a',
+    version = 'v0.3',
     default = {
         language = 'en',
         livestream_URLs = 'streaming',
@@ -43,7 +43,7 @@ vlclive = {
     },
     livestreamURLs = {
         streaming = {
-            'azubu.tv/', 'cybergame.tv/', 'panda.tv/', 'streamlive.to/view/', 'tvplayer.com/watch/', 'twitch.tv/', 'ustream.tv/channel/'
+            'afreeca.tv/', 'azubu.tv/', 'chaturbate.com/', 'cybergame.tv/', 'filmon.us/', 'hitbox.tv/', 'panda.tv/', 'picarto.tv/', 'streamlive.to/view/', 'tv.majorleaguegaming.com/channel/', 'tvplayer.com/watch/', 'twitch.tv/', 'ustream.tv/channel/'
         }
     },
     quality = {
