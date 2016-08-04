@@ -27,10 +27,11 @@ SOFTWARE.
 -- ******************************
 
 vlclive = {
-    version = 'v0.1',
+    version = 'v0.1a',
     default = {
         language = 'en',
         livestream_base_name = 'twitch',
+        livestreamURLs = 'streaming',
         quality_setting = 'standard'
     },
     os = nil,
@@ -41,13 +42,18 @@ vlclive = {
         extension = nil,
         vlcexe = nil
     },
+    livestreamBaseURLs = {
+        twitch = 'twitch.tv/'
+    },
+    livestreamURLs = {
+        streaming = {
+            'twitch.tv/', 'dailymotion.com/', 'periscope.tv/', 'youtube.com/'
+        }
+    },
     quality = {
         standard = {
             'Source', 'Best', 'High', 'Medium', 'Low', 'Worst', 'Mobile', 'Audio'
         }
-    },
-    livestreamBaseURLs = {
-        twitch = 'twitch.tv/'
     },
     githubSrcFile = 'https://raw.githubusercontent.com/pxitau/VLClive/master/src/VLClivePlus.lua',
     localSrcFileName = 'VLClivePlus.lua',
@@ -100,6 +106,7 @@ local savedStreamers = nil
 local dlg = nil
 local current_LivestreamBaseName = vlclive.default.livestream_base_name
 local current_LivestreamBaseURL = vlclive.livestreamBaseURLs[current_LivestreamBaseName]
+local current_SiteSettings = vlclive.livestreamURLs.streaming
 local current_QualitySettings = vlclive.quality.standard
 
 -- Configures path variables
@@ -204,7 +211,7 @@ function create_MainDialog()
     local lang = vlclive.default.language
     -- First row
     widget_table['streamer_name_label'] = dlg:add_label(vlclive.language[lang].streamer_name_label, 1, row, 1, 1)
-    widget_table['livestreamer_quality_dropdown'] = dlg:add_dropdown(2, row, 2, 1)
+    widget_table['livestreamer_site_dropdown'] = dlg:add_dropdown(2, row, 2, 1)
     widget_table['streamer_name_input'] = dlg:add_text_input('', 3, row, 2, 1)
     widget_table['streamer_add_button'] = dlg:add_button(vlclive.language[lang].streamer_add_button, addFav_Action, 5, row, 1, 1)
     -- Second row
@@ -225,6 +232,11 @@ function create_MainDialog()
     widget_table['streamer_online_button'] = dlg:add_button(vlclive.language[lang].streamer_online_button, isOnline_Action, 4, row, 1, 1)
     widget_table['watch_button'] = dlg:add_button(vlclive.language[lang].watch_button, watch_Action, 5, row, 1, 1)
     -- END SETUP FOR MAIN UI --
+
+    -- Add available site settings to the dropdown
+    for k,v in ipairs(current_SiteSettings) do
+        add_to_siteDropdown(k,v)
+    end
 
     -- Add available quality settings to the dropdown
     for k,v in ipairs(current_QualitySettings) do
@@ -299,6 +311,8 @@ end
 function watch_Action()
     local input_string = widget_table['streamer_name_input']:get_text()
     local dropdown_string = widget_table['streamer_favourites_dropdown']:get_value()
+    local site_string = widget_table['livestreamer_site_dropdown']:get_value()
+    site_string = current_SiteSettings[site_string]
     local quality_string = widget_table['livestreamer_quality_dropdown']:get_value()
     quality_string = current_QualitySettings[quality_string]
 
@@ -352,6 +366,11 @@ end
 function add_to_streamerDropdown(index)
     local streamerName = savedStreamers[index]
     widget_table['streamer_favourites_dropdown']:add_value(streamerName, index)
+end
+
+function add_to_siteDropdown(index)
+    local siteName = current_SiteSettings[index]
+    widget_table['livestreamer_site_dropdown']:add_value(siteName, index)
 end
 
 function add_to_qualityDropdown(index)
