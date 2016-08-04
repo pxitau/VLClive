@@ -1,5 +1,5 @@
-VLClive
-=======
+VLClive Plus
+============
 
 Overview
 --------
@@ -13,11 +13,14 @@ Credits to original author Julian Niedermeier - https://github.com/sleighsoft/VL
 Current Capabilities
 --------------------
 
+VLClive Plus is build on top of VLClive
+
 Note: VLClive currently only works with twitch.tv streams 
 
-- Add/Remove your favourite streamers for quick access
+- Select Streaming Source
+- Add/Remove your favourite streamers for quick access (Remove Currently Broke)
 - Import all your favourite streamers from twitch.tv with one click
-- Quickly check if your favourite streamers are online
+- Quickly check if your favourite streamers are online (Twitch Only)
 - Use all available quality settings
 
 
@@ -41,6 +44,7 @@ Installation
 
 6. Thank you for giving it a shot, much appreciated
 
+Note: Additional Plugins maybe required
 
 Contributing
 ------------
