@@ -4,7 +4,7 @@ VLClive Plus
 Overview
 --------
 
-VLClive Plus is an extension that integrates livestreamer into the VLC media player.
+VLClive Plus is an extension that integrates Streamlink into the VLC media player.
 
 VLClive Plus is written in Lua and uses the VLC Lua plugin interface.
 
@@ -15,19 +15,21 @@ Current Capabilities
 
 VLClive Plus is build on top of VLClive
 
-Note: VLClive currently only works with twitch.tv streams 
+VLClive works using Livestreamer http://docs.livestreamer.io/install.html
 
-- Select Streaming Source
-- Add/Remove your favourite streamers for quick access (Remove Currently Broke)
-- Import all your favourite streamers from twitch.tv with one click
-- Quickly check if your favourite streamers are online (Twitch Only)
-- Use all available quality settings
+VLClive Plus Features
 
+- Auto Update
+- Select Streaming Source or Manual enter Custom Source
+- Add Streamers to favourite list for quick access
+- Remove your favourite streamers for quick access (Broken)
+- Quickly check if your favourite Twitch streamers are online (Broken)
+- Custom quality settings
 
 Installation
 ------------
 
-1. Install Livestreamer: http://docs.livestreamer.io/install.html
+1. Install Streamlink: https://streamlink.github.io/install.html
 (If you use Windows, add it the the Path Variable as well!)
 
 2. Download the Lua file from /src/VLClivePlus.lua
@@ -39,10 +41,6 @@ Installation
   * Mac OS X: /Applications/VLC.app/Contents/MacOS/share/lua/extensions/
 
 4. Run it from the 'View' tab in VLC
-
-5. Please report all bugs immediately :)
-
-6. Thank you for giving it a shot, much appreciated
 
 Note: Additional Plugins maybe required
 
