@@ -1,4 +1,4 @@
--- 00000003
+-- 00000004
 -- Increment the above number by 1 to enable auto update at next extension startup
 --[[
 The MIT License (MIT)
@@ -27,7 +27,7 @@ SOFTWARE.
 -- ******************************
 
 vlclive = {
-    version = 'v0.3',
+    version = 'v0.4',
     default = {
         language = 'en',
         livestream_URLs = 'streaming',
@@ -37,58 +37,44 @@ vlclive = {
     path = {
         userdir = nil,
         configfile = nil,
-        livestreamer = 'livestreamer',
+        streamlink = 'streamlink',
         extension = nil,
         vlcexe = nil
     },
     livestreamURLs = {
         streaming = {
-            'afreeca.tv/', 'azubu.tv/', 'chaturbate.com/', 'cybergame.tv/', 'filmon.us/', 'hitbox.tv/', 'panda.tv/', 'picarto.tv/', 'streamlive.to/view/', 'tv.majorleaguegaming.com/channel/', 'tvplayer.com/watch/', 'twitch.tv/', 'ustream.tv/channel/'
+            '', 'adultswim.com/streams/', 'afreeca.tv/', 'azubu.tv/', 'chaturbate.com/', 'cybergame.tv/', 'filmon.us/', 'hitbox.tv/', 'panda.tv/', 'picarto.tv/', 'streamlive.to/view/', 'tv.majorleaguegaming.com/channel/', 'tvplayer.com/watch/', 'twitch.tv/', 'ustream.tv/channel/'
         }
     },
     quality = {
         standard = {
-            'Source', 'Best', 'High', 'Medium', 'Low', 'Worst', 'Mobile', 'Audio'
+            'Source', 'Best', '1080p60', '1080p', 'High', '720p60', '720p', 'Medium', '480p', 'Low', '360p', 'Worst', '180p', '160p', 'Mobile', 'Audio', 'audio_only'
         }
     },
     githubSrcFile = 'https://raw.githubusercontent.com/pxitau/VLClive/master/src/VLClivePlus.lua',
     localSrcFileName = 'VLClivePlus.lua',
     language = {
-        de = {
-            streamer_name_label = 'Einzelner Streamer:',
-            streamer_add_button = 'Hinzufügen',
-            streamer_remove_button = 'Entfernen',
-            streamer_favourites_label = 'Favoriten:',
-            streamer_online_button = 'Online?',
-            streamer_online_loading_label = 'Lade ...',
-            livestreamer_quality_label = 'Qualität:',
-            watch_button = 'Stream starten!',
-            update_label = 'VLClive wurde soeben aktualisiert. Bitte starten sie die Erweiterung neu!',
-            favourite_offline_text = ' (OFF)',
-            favourite_offline_indicator = 'OFF',
-            favourite_online_text = ' (ONLINE)',
-            favourite_online_indicator = 'ONLINE',
-            twitch_favourites_label = 'Importiere alle Favoriten des Nutzers:',
-            twitch_favourites_add_button = 'Favoriten hinzufügen',
-            dialog_update_title = 'VLClive aktualisiert!',
-            dialog_settings_title = 'VLClive Einstellungen'
-        },
         en = {
-            streamer_name_label = 'Streamer Channel:',
+            vlc_info_1 = 'Please install Streamlink',
+            vlc_info_2 = '<a href="http://streamlink.github.io" target="_blank">http://streamlink.github.io</a>',
+            vlc_info_3 = 'Use <b>Best</b> or <b>Worst</b>, if Source is not available',
+            streamer_channel_label = '1. Select Stream Website:',
+            streamer_name_label = '2. Enter Streamer/Channel Name:',
             streamer_add_button = 'Add to Favourites',
-            streamer_remove_button = 'Remove',
-            streamer_favourites_label = 'Favourites:',
-            streamer_online_button = 'Online?',
+            streamer_remove_button = 'Remove Favourite',
+            streamer_watch_button = 'Watch Favourite',
+            streamer_favourites_label = '2. Watch from Favourites List:',
+            streamer_online_button = 'Is Streamer Online?',
             streamer_online_loading_label = 'Loading ...',
-            livestreamer_quality_label = 'Quality:',
-            watch_button = 'Watch Stream!',
-            update_label = 'VLClive was updated. Please restart the plugin',
+            streamlink_quality_label = '3. Select Quality:',
+            watch_button = 'Watch Streamer',
+            update_label = 'VLClive + was updated. Please restart the plugin',
             favourite_offline_text = ' (OFF)',
             favourite_offline_indicator = 'OFF',
             favourite_online_text = ' (ONLINE)',
             favourite_online_indicator = 'ONLINE',
-            twitch_favourites_label = 'Import Twitch User Favourites:',
-            twitch_favourites_add_button = 'Import',
+            twitch_favourites_label = 'Import Twitch Favourites:',
+            twitch_favourites_add_button = 'Import Favourites',
             dialog_update_title = 'VLClive Updated!',
             dialog_settings_title = 'VLClive Settings'
         }
@@ -168,7 +154,7 @@ function descriptor()
         author = 'Julian Niedermeier',
         url = 'https://github.com/pxitau/VLClive',
         shortdesc = 'VLClivePlus',
-        description = 'Integrates Livestreamer supported streams into VLC for easy handling',
+        description = 'Integrates Streamlink supported streams into VLC for easy handling',
         capabilities = {'menu'}
     }
 end
@@ -204,29 +190,38 @@ function create_MainDialog()
     -- START SETUP FOR MAIN UI --
     local row = 1
     local lang = vlclive.default.language
+    -- Info row
+    widget_table['vlc_info_1'] = dlg:add_label(vlclive.language[lang].vlc_info_1, 2, row, 1, 1)
+    widget_table['vlc_info_2'] = dlg:add_label(vlclive.language[lang].vlc_info_2, 3, row, 1, 1)
     -- First row
-    widget_table['streamer_name_label'] = dlg:add_label(vlclive.language[lang].streamer_name_label, 1, row, 1, 1)
-    widget_table['livestreamer_site_dropdown'] = dlg:add_dropdown(2, row, 2, 1)
-    -- Second row
     row = row + 1
+    widget_table['streamer_channel_label'] = dlg:add_label(vlclive.language[lang].streamer_channel_label, 1, row, 1, 1)
+    widget_table['streamlink_site_dropdown'] = dlg:add_dropdown(2, row, 3, 1)
+    -- Second row
+    row = row + 1;
+    widget_table['streamer_name_label'] = dlg:add_label(vlclive.language[lang].streamer_name_label, 1, row, 1, 1)
     widget_table['streamer_name_input'] = dlg:add_text_input('', 2, row, 3, 1)
     widget_table['streamer_add_button'] = dlg:add_button(vlclive.language[lang].streamer_add_button, addFav_Action, 5, row, 1, 1)
     -- Third row
-    row = row + 1
-    widget_table['twitch_favourites_label'] = dlg:add_label(vlclive.language[lang].twitch_favourites_label, 1, row, 1, 1)
-    widget_table['twitch_favourites_input'] = dlg:add_text_input('', 2, row, 3, 1)
-    widget_table['twitch_favourites_add_button'] = dlg:add_button(vlclive.language[lang].twitch_favourites_add_button, addTwitchFav_Action, 5, row, 2, 1)
-    -- Fourth row
     row = row + 1;
-    vlclive.gui_isOnlineRow = row
     widget_table['streamer_favourites_label'] = dlg:add_label(vlclive.language[lang].streamer_favourites_label, 1, row, 1, 1)
     widget_table['streamer_favourites_dropdown'] = dlg:add_dropdown(2, row, 2, 1)
-    widget_table['streamer_remove_button'] = dlg:add_button(vlclive.language[lang].streamer_remove_button, removeFav_Action, 5, row, 1, 1)
-    -- Fifth row
-    row = row + 1;
-    widget_table['livestreamer_quality_label'] = dlg:add_label(vlclive.language[lang].livestreamer_quality_label, 1, row, 1, 1)
-    widget_table['livestreamer_quality_dropdown'] = dlg:add_dropdown(2, row, 2, 1)
+    vlclive.gui_isOnlineRow = row
     widget_table['streamer_online_button'] = dlg:add_button(vlclive.language[lang].streamer_online_button, isOnline_Action, 4, row, 1, 1)
+    widget_table['streamer_remove_button'] = dlg:add_button(vlclive.language[lang].streamer_remove_button, removeFav_Action, 5, row, 1, 1)
+    -- Fourth row
+    row = row + 1
+    widget_table['streamlink_quality_label'] = dlg:add_label(vlclive.language[lang].streamlink_quality_label, 1, row, 1, 1)
+    widget_table['streamlink_quality_dropdown'] = dlg:add_dropdown(2, row, 2, 1)
+    widget_table['vlc_info_3'] = dlg:add_label(vlclive.language[lang].vlc_info_3, 3, row, 2, 1)
+    -- Fifth row
+    -- row = row + 1;
+    -- widget_table['twitch_favourites_label'] = dlg:add_label(vlclive.language[lang].twitch_favourites_label, 1, row, 1, 1)
+    -- widget_table['twitch_favourites_input'] = dlg:add_text_input('', 2, row, 3, 1)
+    -- widget_table['twitch_favourites_add_button'] = dlg:add_button(vlclive.language[lang].twitch_favourites_add_button, addTwitchFav_Action, 5, row, 2, 1)
+    -- Sixth row
+    row = row + 1;
+    widget_table['streamer_watch_button'] = dlg:add_button(vlclive.language[lang].streamer_watch_button, watchstreamer_Action, 4, row, 1, 1)
     widget_table['watch_button'] = dlg:add_button(vlclive.language[lang].watch_button, watch_Action, 5, row, 1, 1)
     -- END SETUP FOR MAIN UI --
 
@@ -303,14 +298,14 @@ function close_dlg()
     collectgarbage() --~ !important 
 end
 
--- Starts livestreamer with the selected streamer and quality setting
+-- Starts streamlink with the selected streamer and quality setting
 -- Dropdown menu selection overwrites a string input in 'streamer_name_input'
 function watch_Action()
     local input_string = widget_table['streamer_name_input']:get_text()
     local dropdown_string = widget_table['streamer_favourites_dropdown']:get_value()
-    local site_string = widget_table['livestreamer_site_dropdown']:get_value()
+    local site_string = widget_table['streamlink_site_dropdown']:get_value()
     site_string = current_SiteSettings[site_string]
-    local quality_string = widget_table['livestreamer_quality_dropdown']:get_value()
+    local quality_string = widget_table['streamlink_quality_dropdown']:get_value()
     quality_string = current_QualitySettings[quality_string]
     local current_LivestreamBaseURL = site_string
 
@@ -329,20 +324,57 @@ function watch_Action()
     vlc.msg.dbg('Selected streamer: ' .. input_string)
     if input_string ~= '' and input_string then
         local cmd = ''
-        vlc.msg.dbg('Livestreamer: ' .. vlclive.path.livestreamer)
+        vlc.msg.dbg('streamlink: ' .. vlclive.path.streamlink)
         vlc.msg.dbg('BaseURL: ' .. current_LivestreamBaseURL)
         vlc.msg.dbg('Quality: ' .. quality_string)
         if vlclive.os == 'win' then
-            cmd = 'start /min "" "' .. vlclive.path.livestreamer .. '" ' .. current_LivestreamBaseURL .. input_string .. ' ' .. quality_string .. ' --player "' .. vlclive.path.vlcexe .. '" & exit'
+            cmd = 'start /min "" "' .. vlclive.path.streamlink .. '" ' .. current_LivestreamBaseURL .. input_string .. ' ' .. quality_string .. ' --player "' .. vlclive.path.vlcexe .. '" & exit'
         elseif vlclive.os == 'mac' then
-            cmd = 'osascript -e \'tell application \"Terminal\" to do script \"' .. vlclive.path.livestreamer .. ' ' .. current_LivestreamBaseURL .. input_string .. ' ' .. quality_string .. ' && exit\"\''
+            cmd = 'osascript -e \'tell application \"Terminal\" to do script \"' .. vlclive.path.streamlink .. ' ' .. current_LivestreamBaseURL .. input_string .. ' ' .. quality_string .. ' && exit\"\''
         elseif vlclive.os == 'lin' then
-            cmd = vlclive.path.livestreamer .. ' ' .. current_LivestreamBaseURL .. input_string .. ' ' .. quality_string
+            cmd = vlclive.path.streamlink .. ' ' .. current_LivestreamBaseURL .. input_string .. ' ' .. quality_string
         end
         vlc.msg.dbg(cmd)
         os.execute(cmd)
     end
 end
+
+function watchstreamer_Action()
+    local input_string = widget_table['streamer_name_input']:get_text()
+    local dropdown_string = widget_table['streamer_favourites_dropdown']:get_value()
+    local site_string = widget_table['streamlink_site_dropdown']:get_value()
+    site_string = current_SiteSettings[site_string]
+    local quality_string = widget_table['streamlink_quality_dropdown']:get_value()
+    quality_string = current_QualitySettings[quality_string]
+    -- local current_LivestreamBaseURL = site_string
+
+    if dropdown_string == 0 then
+        dropdown_string = ''
+    else
+        input_string = isOnlineStreamerTable[dropdown_string]
+        if not input_string then
+            input_string = savedStreamers[dropdown_string]
+        end
+    end
+
+    vlc.msg.dbg('Selected streamer: ' .. input_string)
+    if input_string ~= '' and input_string then
+        local cmd = ''
+        vlc.msg.dbg('streamlink: ' .. vlclive.path.streamlink)
+        -- vlc.msg.dbg('BaseURL: ' .. current_LivestreamBaseURL)
+        vlc.msg.dbg('Quality: ' .. quality_string)
+        if vlclive.os == 'win' then
+            cmd = 'start /min "" "' .. vlclive.path.streamlink .. '" ' .. input_string .. ' ' .. quality_string .. ' --player "' .. vlclive.path.vlcexe .. '" & exit'
+        elseif vlclive.os == 'mac' then
+            cmd = 'osascript -e \'tell application \"Terminal\" to do script \"' .. vlclive.path.streamlink .. ' ' .. input_string .. ' ' .. quality_string .. ' && exit\"\''
+        elseif vlclive.os == 'lin' then
+            cmd = vlclive.path.streamlink .. ' ' .. input_string .. ' ' .. quality_string
+        end
+        vlc.msg.dbg(cmd)
+        os.execute(cmd)
+    end
+end
+
 
 -- Check if the streamer in the dropdown menu are online and adds an indicator to each of them
 function isOnline_Action()
@@ -368,12 +400,12 @@ end
 
 function add_to_siteDropdown(index)
     local siteName = current_SiteSettings[index]
-    widget_table['livestreamer_site_dropdown']:add_value(siteName, index)
+    widget_table['streamlink_site_dropdown']:add_value(siteName, index)
 end
 
 function add_to_qualityDropdown(index)
     local qualityName = current_QualitySettings[index]
-    widget_table['livestreamer_quality_dropdown']:add_value(qualityName, index)
+    widget_table['streamlink_quality_dropdown']:add_value(qualityName, index)
 end
 
 -- Queries the twitch api for all 'favourite' streamers
@@ -423,7 +455,7 @@ function is_online(tStreamerNames)
 end
 
 function addFav_Action()
-    local site_string = widget_table['livestreamer_site_dropdown']:get_value()
+    local site_string = widget_table['streamlink_site_dropdown']:get_value()
     site_string = current_SiteSettings[site_string]
     local input_string = widget_table['streamer_name_input']:get_text()
     input_string = site_string .. input_string
