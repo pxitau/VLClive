@@ -1,4 +1,4 @@
--- 00000004
+-- 00000005
 -- Increment the above number by 1 to enable auto update at next extension startup
 --[[
 The MIT License (MIT)
@@ -27,7 +27,7 @@ SOFTWARE.
 -- ******************************
 
 vlclive = {
-    version = 'v0.4',
+    version = 'v0.5',
     default = {
         language = 'en',
         livestream_URLs = 'streaming',
@@ -48,7 +48,7 @@ vlclive = {
     },
     quality = {
         standard = {
-            'Source', 'Best', '1080p60', '1080p', 'High', '720p60', '720p', 'Medium', '480p', 'Low', '360p', 'Worst', '180p', '160p', 'Mobile', 'Audio', 'audio_only'
+            'Best', '2160p', '1080p', 'High', '720p', 'Medium', '480p', 'Low', '360p', '240p', 'Worst', '180p', '160p', 'Mobile', '144p', 'Source', 'Audio', 'audio_only'
         }
     },
     githubSrcFile = 'https://raw.githubusercontent.com/pxitau/VLClive/master/src/VLClivePlus.lua',
@@ -57,7 +57,7 @@ vlclive = {
         en = {
             vlc_info_1 = 'Please install Streamlink',
             vlc_info_2 = '<a href="http://streamlink.github.io" target="_blank">http://streamlink.github.io</a>',
-            vlc_info_3 = 'Use <b>Best</b> or <b>Worst</b>, if Source is not available',
+            vlc_info_3 = 'Select quality of stream source, default <b>Best</b> or <b>Worst</b> recommended',
             streamer_channel_label = '1. Select Stream Website:',
             streamer_name_label = '2. Enter Streamer/Channel Name:',
             streamer_add_button = 'Add to Favourites',
@@ -212,7 +212,7 @@ function create_MainDialog()
     -- Fourth row
     row = row + 1
     widget_table['streamlink_quality_label'] = dlg:add_label(vlclive.language[lang].streamlink_quality_label, 1, row, 1, 1)
-    widget_table['streamlink_quality_dropdown'] = dlg:add_dropdown(2, row, 2, 1)
+    widget_table['streamlink_quality_dropdown'] = dlg:add_dropdown(2, row, 1, 1)
     widget_table['vlc_info_3'] = dlg:add_label(vlclive.language[lang].vlc_info_3, 3, row, 2, 1)
     -- Fifth row
     -- row = row + 1;
