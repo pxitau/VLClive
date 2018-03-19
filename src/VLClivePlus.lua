@@ -1,4 +1,4 @@
--- 00000005
+-- 00000006
 -- Increment the above number by 1 to enable auto update at next extension startup
 --[[
 The MIT License (MIT)
@@ -27,7 +27,7 @@ SOFTWARE.
 -- ******************************
 
 vlclive = {
-    version = 'v0.5',
+    version = 'v0.6',
     default = {
         language = 'en',
         livestream_URLs = 'streaming',
@@ -43,7 +43,9 @@ vlclive = {
     },
     livestreamURLs = {
         streaming = {
-            '', 'adultswim.com/streams/', 'afreeca.tv/', 'azubu.tv/', 'chaturbate.com/', 'cybergame.tv/', 'filmon.us/', 'hitbox.tv/', 'panda.tv/', 'picarto.tv/', 'streamlive.to/view/', 'tv.majorleaguegaming.com/channel/', 'tvplayer.com/watch/', 'twitch.tv/', 'ustream.tv/channel/'
+            '', 'adultswim.com/streams/', 'afreeca.tv/', 'azubu.tv/', 'bongacams.com/', "cam4.com/", 'camsoda.com/', 'chaturbate.com/', 
+            'cybergame.tv/', 'filmon.us/', 'hitbox.tv/', 'panda.tv/', 'picarto.tv/', 'streamlive.to/view/', 'tv.majorleaguegaming.com/channel/', 
+            'tvplayer.com/watch/', 'twitch.tv/', 'ustream.tv/channel/', 'youtube.com/user/'
         }
     },
     quality = {
@@ -68,9 +70,9 @@ vlclive = {
             streamer_online_loading_label = 'Loading ...',
             streamlink_quality_label = '3. Select Quality:',
             watch_button = 'Watch Streamer',
-            update_label = 'VLClive + was updated. Please restart the plugin',
-            favourite_offline_text = ' (OFF)',
-            favourite_offline_indicator = 'OFF',
+            update_label = 'VLClive Plus was updated. Please restart the plugin',
+            favourite_offline_text = ' (OFFLINE)',
+            favourite_offline_indicator = 'OFFLINE',
             favourite_online_text = ' (ONLINE)',
             favourite_online_indicator = 'ONLINE',
             twitch_favourites_label = 'Import Twitch Favourites:',
@@ -379,12 +381,12 @@ end
 -- Check if the streamer in the dropdown menu are online and adds an indicator to each of them
 function isOnline_Action()
     local row = vlclive.gui_isOnlineRow
-    dlg:del_widget(widget_table['streamer_favourites_dropdown'])
+    -- dlg:del_widget(widget_table['streamer_favourites_dropdown'])
     dlg:del_widget(widget_table['streamer_online_button'])
     loadingLabel = dlg:add_label(vlclive.language[vlclive.default.language].streamer_online_loading_label, 4, row, 1, 1)
     dlg:update()
-    widget_table['streamer_favourites_dropdown'] = dlg:add_dropdown(2, row, 2, 1)
-    widget_table['streamer_favourites_dropdown']:add_value("----", 0)
+    -- widget_table['streamer_favourites_dropdown'] = dlg:add_dropdown(2, row, 2, 1)
+    -- widget_table['streamer_favourites_dropdown']:add_value("----", 0)
     isOnlineStreamerTable = is_online(savedStreamers)
     for key,value in ipairs(isOnlineStreamerTable) do
         widget_table['streamer_favourites_dropdown']:add_value(value, key)
@@ -413,7 +415,7 @@ end
 function is_online(tStreamerNames)
     -- Copy the table to not affect the table that is used for querying
     local localStreamerTable = table_shallow_copy(tStreamerNames)
-    local requestURL = 'https://api.twitch.tv/kraken/streams?channel='
+    local requestURL = 'https://api.twitch.tv/kraken/channels/'
     for _,v in ipairs(localStreamerTable) do
         requestURL = requestURL .. v .. ","
     end
@@ -517,10 +519,8 @@ end
 function removeFav_Action()
     local input_string = widget_table['streamer_name_input']:get_text()
     local key = table_contains_item(savedStreamers, input_string)
-    if key then
-        table.remove(savedStreamers, key)
-        write_lines(vlclive.path.configfile, savedStreamers)
-    end
+    table.remove(savedStreamers, key)
+    write_lines(vlclive.path.configfile, savedStreamers)
     dlg:del_widget(widget_table['streamer_favourites_dropdown'])
     widget_table['streamer_favourites_dropdown'] = dlg:add_dropdown(2, vlclive.gui_isOnlineRow, 2, 1)
     widget_table['streamer_favourites_dropdown']:add_value('----', 0)
